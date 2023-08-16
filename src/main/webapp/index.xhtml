@@ -1,24 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+<html lang="uk"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
     <h:head>
         <title>Кафедри</title>
+        <h:outputStylesheet library="css" name="styles.css"/>
     </h:head>
     <h:body>
-        <h:dataTable value="#{kafedraBean.kafedras}" var="k">
-            <h:column>
-                <f:facet name="header">#</f:facet>
-                <h:outputText value="#{k.id}"/>
-            </h:column>
-            <h:column>
-                <f:facet name="header">Назва</f:facet>
-                <h:outputText value="#{k.name}"/>
-            </h:column>
-        </h:dataTable>
+        <h:form>
+            <h:outputLabel value="Нова кафедра" for="kafname"/>
+            <h:inputText id="kafname" value="#{kafedraBean.kafedra.name}" required="true"/>
+            <h:commandButton value="Додати" action="#{kafedraBean.add()}"/>
+        </h:form>
+        <h:form>
+            <h:dataTable value="#{kafedraBean.kafedras}" var="k">
+                <h:column>
+                    <f:facet name="header">#</f:facet>
+                    <h:outputText value="#{k.id}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Назва</f:facet>
+                    <h:outputText value="#{k.name}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">X</f:facet>
+                    <h:commandLink value="Delete" action="#{kafedraBean.remove(k.id)}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Edit</f:facet>
+                    <h:commandLink value="Edit" action="#{kafedraBean.edit(k.id)}"/>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">Викладачі</f:facet>
+                    <h:commandButton value="Показати" action="#{kafedraBean.showTeachers(k.id)}"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+        <a href="teachers.xhtml">Teachers</a>
     </h:body>
 </f:view>
 </html>

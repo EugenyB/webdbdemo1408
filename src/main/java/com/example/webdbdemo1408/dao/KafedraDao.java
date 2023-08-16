@@ -15,4 +15,22 @@ public class KafedraDao {
     public List<Kafedra> findAll() {
         return em.createNamedQuery("Kafedra.findAll", Kafedra.class).getResultList();
     }
+
+    public Kafedra add(Kafedra kafedra) {
+        em.persist(kafedra);
+        return kafedra;
+    }
+
+    public void remove(int id) {
+        Kafedra kafedra = em.find(Kafedra.class, id);
+        em.remove(kafedra);
+    }
+
+    public Kafedra find(int id) {
+        return em.find(Kafedra.class, id);
+    }
+
+    public void update(Kafedra selected) {
+        em.merge(selected);
+    }
 }
